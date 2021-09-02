@@ -4,8 +4,6 @@ const loadData = () => {
     const getInput = document.getElementById('search-field');
     const searchText = getInput.value;
     getInput.value = '';
-
-
     const url = `http://openlibrary.org/search.json?q=${searchText}`;
 
     const errorMassage = document.getElementById('error');
@@ -24,10 +22,20 @@ const loadData = () => {
 };
 
 const displayData = allBooks => {
+
+    const totalFound = document.getElementById('total-books');
+    totalFound.innerHTML = `<h3 class="text-center text-info">Total Books Found : ${allBooks.numFound}</h3>`;
+
     const books = allBooks.docs;
     const myCustomDiv = document.getElementById('boot-card')
     myCustomDiv.innerText = '';
 
+    /*  const anotherError = document.getElementById('error2')
+     if (books.length < 0) {
+         const h5 = document.createElement('h5')
+         h5.innerHTML = `<h5 class="text-center text-danger"> No result found</h5>`;
+         anotherError.appendChild(h5)
+     } */
     books.forEach(book => {
         //console.log(book)
         const div = document.createElement('div');
@@ -48,3 +56,5 @@ const displayData = allBooks => {
 
     });
 }
+
+
