@@ -1,27 +1,29 @@
-
+const errorDiv = document.getElementById('error');
 // collect data from input text
 const loadData = () => {
     const getInput = document.getElementById('search-field');
     const searchText = getInput.value;
+    if (searchText === '') {
+        errorDiv.innerHTML = `<h6 class="text-center text-danger mt-5 fs-1"> Search Field Is Empty</h6>`
+        return;
+    }
     getInput.value = '';
     const url = `http://openlibrary.org/search.json?q=${searchText}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayData(data))
 
-    const errorMassage = document.getElementById('error');
-    if (searchText === '') {
-        errorMassage.textContent = '';
-        const p = document.createElement('p');
-        p.innerHTML = `<h2 class="text-center text-danger">Please write something<h2>`;
-        errorMassage.appendChild(p);
-    }
-    else {
-        errorMassage.textContent = '';
-        fetch(url)
-            .then(res => res.json())
-            .then(data => displayData(data))
-    }
 };
 
 const displayData = allBooks => {
+
+    if (allBooks.numFound === 0) {
+        errorDiv.innerHTML = `<h6 class="text-center text-danger mt-5 fs-1">No Result Found</h6>`
+        return;
+    }
+    else {
+        errorDiv.textContent = '';
+    }
 
     const totalFound = document.getElementById('total-books');
     totalFound.innerHTML = `<h3 class="text-center text-info">Total Books Found : ${allBooks.numFound}</h3>`;
@@ -29,13 +31,6 @@ const displayData = allBooks => {
     const books = allBooks.docs;
     const myCustomDiv = document.getElementById('boot-card')
     myCustomDiv.innerText = '';
-
-    /*  const anotherError = document.getElementById('error2')
-     if (books.length < 0) {
-         const h5 = document.createElement('h5')
-         h5.innerHTML = `<h5 class="text-center text-danger"> No result found</h5>`;
-         anotherError.appendChild(h5)
-     } */
     books.forEach(book => {
         //console.log(book)
         const div = document.createElement('div');
