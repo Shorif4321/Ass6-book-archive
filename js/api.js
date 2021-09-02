@@ -1,4 +1,4 @@
-/* -------------Error massage Id ------------------------- */
+/* -------------====Error massage Id===== ------------------------- */
 const errorDiv = document.getElementById('error');
 
 const loadData = () => {
@@ -34,6 +34,7 @@ const displayData = allBooks => {
     else {
         errorDiv.textContent = '';
     }
+
     /*-------------------search result Quentity ------------ */
     const totalFound = document.getElementById('books-quentity');
     totalFound.innerHTML = `<h3 class="text-center text-info">Total Books Found : ${allBooks.numFound}</h3>`;
