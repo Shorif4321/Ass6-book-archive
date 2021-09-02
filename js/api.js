@@ -25,6 +25,10 @@ const displayData = allBooks => {
     /* ---------------------error massage----------------------- */
     if (allBooks.numFound === 0) {
         errorDiv.innerHTML = `<h6 class="text-center text-danger mt-5 fs-1">No Result Found</h6>`
+        const myCustomDiv = document.getElementById('book-items')
+        myCustomDiv.textContent = '';
+        const totalFound = document.getElementById('books-quentity');
+        totalFound.textContent = "";
         return;
     }
     else {
